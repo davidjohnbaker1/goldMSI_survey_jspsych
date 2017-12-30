@@ -24,8 +24,9 @@ Move that file to inside the directory you just downloaded and then unzip it.
 The last thing that you will then need to do is to change the name of the folder from ``jsPsych-master`` to ``jspsych-5.0``.
 Doing this will the scripts from the Gold-MSI folder to read the jsPsych files needed to run the survey.
 
-
 This will allow you to access all of jsPsych's libraries and make the Gold MSI run.
+Just double click the ``.html`` file in your folder and the experiment will run!
+Feel free to also change the name of the folder to you know what is in it.
 
 ## Scoring Your Files
 
@@ -33,7 +34,9 @@ This will allow you to access all of jsPsych's libraries and make the Gold MSI r
 
 ## Exploring the Scripts
 
-Inside both the .html and the .js files are lines of code that begin with a //.
+Inside both the ``.html`` and the ``.js`` files are lines of code that begin with a //.
 I have provided comments as to what each block of code is doing in order to help 
 someone that is new to this better understand how the code is functioning. 
- 
+
+Once you feel comfortable with playing around with these scripts, try learn how to clone the repo from the command line!
+This way you can more easily stay up to date with changes made on the jsPsych or Gold MSI end of things (adding new versions!). 
