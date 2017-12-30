@@ -20,7 +20,10 @@ After this has been set up you then need to download jsPsych so that these scrip
 jsPsych is an open source library that is made for running experiments in the web browser.
 Download it by going the repository [here](https://github.com/jspsych/jsPsych) and then clicking the green 'Clone or download' button.
 If you 'Dowload ZIP', then your browser will save the file and its contents to your downloads. 
-Move that file to inside the goldMSI_survey_jspsych folder and then unzip it.
+Move that file to inside the directory you just downloaded and then unzip it.
+The last thing that you will then need to do is to change the name of the folder from ``jsPsych-master`` to ``jspsych-5.0``.
+Doing this will the scripts from the Gold-MSI folder to read the jsPsych files needed to run the survey.
+
 
 This will allow you to access all of jsPsych's libraries and make the Gold MSI run.
 
