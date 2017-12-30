@@ -1,0 +1,254 @@
+#======================================================================================================
+# Scoring Script to Score Gold-MSI Self Report Survey Version 1.0
+# Works with jsPsych v5.0.3 implementation of GMSI by David John Baker
+#======================================================================================================
+# Directions
+#--------------------------------------------------
+# To use this script just point the script at the directory containing your raw CSV files.
+# Click "Source" at the top right panel of this screen (in RStudio)
+# then run the score.directory() function. This will create individual aggregated files
+# for each of your participants. To combine them all, run the create.dataset() 
+# function. Note that ONLY the _data files should be in the 
+# directory that the create.dataset() function is pointing to.
+#--------------------------------------------------
+# NOTE that if you are using the INDIVIDUAL item level data for the analysis
+# that the variables as the occur on the final dataset do NOT correspond
+# to either the original GMSI survey OR the 2014 paper's Figure 1.
+# Later versions of this might reorganize this, but in the mean time there is 
+# a "Key" spreadsheet found in the main repository.
+#======================================================================================================
+
+# Uncomment and set path for example files.
+#setwd("/goldMSI_survey_jspsych/data")
+
+#Packages Needed
+    library(stringr)
+
+score.directory <- function(fns=list.files(pattern=".csv")){
+  
+  # Set up the For Loop to score all of the .csv files in the directory
+   for(i in seq(along=fns)){
+     
+     tmp.dat <- read.csv(fns[i])
+     print(paste("Now Working On File",fns[i]))
+
+ ## tmp.dat <- read.csv("HIGH.csv") # Line for Debugging 
+  
+    data1 <- tmp.dat[,c(7,8)] # Just gets object with Gold-MSI related information, not timing blocks
+    subjNo <- as.character(data1[1,1])
+    data2 <- as.vector(data1) # Make it a vector so gsub works
+    data2a <- data2[-1,-1] # Drop First row, subject number column 
+    
+    ## Clean jsMarkers off of Data 
+      data3 <- gsub("Q[0-9]|Q10","",data2a)     # Remove Q bit PROBLEM NEED TO TAKE AWAY 10 
+      data4 <- gsub(":","",data3)               # Remove colon
+      dataX <- gsub('"',"",data4)               # Remove Quotes
+  ## Likerts Cleaned 
+        # If you run dataX, you will see we have 8 item list of each page 
+      
+      likerts <- dataX[c(1:4,6)]                     # Only grab Likert level pages, NOT Education Levels  
+      lkt1 <- str_split(likerts,",")
+      lkt2 <- unlist(lkt1)
+      lkt3 <- gsub("[[:punct:]]","",lkt2)       # Now we only have 1 long string of all Likert Responses 
+      lkt4 <- data.frame(lkt3)                  # Put it as a data.frame       
+      Likerts <- lkt4
+          
+        # Subset Likert Scales
+      
+          LikertsA <- Likerts[1:31,]            # Grab first 31 Rows that correspond to first 31 questions on 7 point scale
+          LikertsA <- as.numeric(as.character(LikertsA))      # Change from Vector to Character to Numeric (need to pass thru character!)
+          LikertsA <- LikertsA + 1              # jsPsych has bottom of likert scale coded as 0, need to have bottom be 1 so +1
+          LikertsB <- Likerts[32:38,]           # Musical Training Questions set in their own object 
+          LikertsC <- Likerts[39,]
+          
+          LikertsC <- as.character(LikertsC)
+          LikertsB <- as.numeric(as.character(LikertsB))
+          LikertsA <- as.vector(LikertsA)
+          LikertsB <- as.vector(LikertsB)
+      
+      #Fix Math Problem on Musical Training Sub Section
+          
+          LikertsB <- LikertsB + 1
+          LikertsC <- as.vector(LikertsC)
+          Likerts <- c(LikertsA, LikertsB, LikertsC)
+  
+          
+    ## Instrument
+        instrument <- LikertsC
+        instDone <- data.frame(instrument)
+        Instrument <- instDone
+        
+  ## Demographic 
+        demographic <- dataX[9]
+        demo1 <- str_split(demographic,",")
+        demo2 <- unlist(demo1)
+        demo3 <- gsub("[[:punct:]]","",demo2)
+        demo4 <- data.frame(demo3)
+        Demographic <- demo4
+    
+        Age <- gsub("[[:punct:]]","",dataX[7])
+        Gender <- gsub("[[:punct:]]","",dataX[8])
+        
+        Nationality <- gsub("[[:punct:]]","",dataX[9])
+        Formative <- gsub("[[:punct:]]","",dataX[10])
+        CurrentCountry <- gsub("[[:punct:]]","",dataX[11])
+        
+    ## Occupation, Genre, Education Attained, Education Expected
+        occGenreEd <- dataX[5]
+        occ1 <- str_split(occGenreEd,",")
+        occ2 <- unlist(occ1)
+        occ3 <- gsub("[[:punct:]]","",occ2)
+        occ4 <- as.vector(occ3)
+        occ4 <- as.character(occ4)
+        
+        ## Occupation Status 
+      if ( occ4[1] == "0") {
+          occ4[1]<- "Still At School"
+        } else if ( occ4[1] == "1") {
+          occ4[1]<- "At University"
+        } else if ( occ4[1] == "2") {
+          occ4[1]<- "In Full Time Employment"
+        } else if ( occ4[1] == "3") {
+          occ4[1]<- "In Part Time Employment"
+        } else if ( occ4[1] == "4") {
+          occ4[1]<- "Self Employed"
+        } else if ( occ4[1] == "5") {
+          occ4[1]<- "Homemaker/Fulltime Parent"
+        } else if ( occ4[1] == "6") {
+          occ4[1]<- "Unemployed"
+        } else if ( occ4[1] == "7") {
+          occ4[1]<- "Retired" }
+        
+        occStats <- occ4[1]
+          
+        ## Musical Genre 
+        if ( occ4[2] == "0") {
+          occ4[2]<- "Rock/Pop"
+        } else if ( occ4[2] == "1") {
+          occ4[2]<- "Jazz"
+        } else if ( occ4[2] == "2"){ 
+          occ4[2]<- "Classical" }
+        
+        Genre <- occ4[2]
+          
+        ## Education Attained 
+          if ( occ4[3] == "0") {
+            occ4[3]<- "Did not complete any school qualification"
+          } else if ( occ4[3] == "1") {
+            occ4[3]<- "Completed first school qualification at ~16 years (Junior High/GCSE)"
+          } else if ( occ4[3] == "2") {
+            occ4[3]<- "Completed second qualification (e.g. High school/A-levels)"
+          } else if ( occ4[3] == "3") {
+            occ4[3]<- "Undergraduate degree/Professional qualification"
+          } else if ( occ4[3] == "4") {
+            occ4[3]<- "Graduate school/Postgraduate degree"
+          } else if ( occ4[3] == "5") {
+            occ4[3]<- "I am still in education" }
+          
+        edAttain <- occ4[3]
+        
+          ## Education Expected 
+          if ( occ4[4] == "0") {
+            occ4[4]<- "First school qualification (Junior High/GCSE)"
+          } else if ( occ4[4] == "1") {
+            occ4[4]<- "Post-16 vocational school"
+          } else if ( occ4[4] == "2") {
+            occ4[4]<- "Second school qualification (High school/A-levels)"
+          } else if ( occ4[4] == "3") {
+            occ4[4]<- "Undergraduate degree or professional qualification"
+          } else if ( occ4[4] == "4") {
+            occ4[4]<- "Postgraduate degree"
+          } else if ( occ4[4] == "5") {
+            occ4[4]<- "Not Applicable" }
+            
+        edExpected <- occ4[4]
+
+    ##Aggregate
+      data7 <- Likerts
+      data7t <- t(data7)
+     
+      data7 <- as.data.frame(data7)    
+  ## Data is now long data frame ready to get subscales out
+      activeEngagement <- data7[c(1,3,8,15,21,24,28,34,38),]
+      activeEngagement <- as.numeric(as.vector(activeEngagement))
+      perceptualAbilities <- data7[c(5,6,11,12,13,18,22,23,26),]
+      perceptualAbilities <- as.numeric(as.vector(perceptualAbilities))
+      musicalTraining <- data7[c(14,27,32,33,35,36,37),]
+      musicalTraining <- as.numeric(as.vector(musicalTraining))
+      musicalTrainingRaw <- data7[c(14,27,32,33,35,36,37),]
+      singingAbilities <- data7[c(4,7,10,17,25,29,30),]
+      singingAbilities <- as.numeric(as.vector(singingAbilities))
+      emotions <- data7[c(2,9,16,19,20,31),]
+      emotions <- as.numeric(as.vector(emotions))
+      generalFactor <- data7[c(1,3,4,7,10,12,14,15,17,19,23,24,25,27,29,32,33,37),]
+      generalFactor <- as.numeric(as.vector(generalFactor))
+  
+  #Reverse Items
+  
+  ##Active Engagment
+    actRev5 <- (activeEngagement[5] * -1) + 8
+    activeEngagement[5] <- actRev5
+  ##Perceptual Abilities 
+    perRev3 <- (perceptualAbilities[3]*-1) + 8
+    perRev5 <- (perceptualAbilities[5]*-1) + 8
+    perRev8 <- (perceptualAbilities[8]*-1) + 8
+    perceptualAbilities[3] <- perRev3
+    perceptualAbilities[5] <- perRev5
+    perceptualAbilities[8] <- perRev8
+  ##Musical Training
+      musRev1 <- (musicalTraining[1]*-1) + 8 
+      musRev2 <- (musicalTraining[2]*-1) + 8
+      musicalTraining[1] <- musRev1
+      musicalTraining[2] <- musRev2
+  # ##Singing Abilities 
+       singRev4 <- (singingAbilities[4]*-1) + 8
+       singRev5 <- (singingAbilities[5]*-1) + 8
+       singingAbilities[4] <- singRev4
+       singingAbilities[5] <- singRev5
+  ##Emotions
+      emotionRev2 <- (emotions[2]*-1) + 8
+      emotions[2] <- emotionRev2
+  ##General Factor 
+      generalFactor[7] <- (generalFactor[7]*-1) + 8
+      generalFactor[9] <- (generalFactor[9]*-1) + 8
+      generalFactor[11] <- (generalFactor[11]*-1) + 8
+      generalFactor[13] <- (generalFactor[13]*-1) + 8
+      generalFactor[14]  <- (generalFactor[14]*-1) + 8
+
+  ##Items have been subsetted, rename the headers,transpose, join together
+      tActive <- t(activeEngagement)
+      tPerceptual <-t(perceptualAbilities)
+      tMusical <- t(musicalTraining)
+      tSinging <- t(singingAbilities)
+      tEmotions <- t(emotions)
+      tGeneral <- t(generalFactor)
+      individual_responses <- cbind(tActive,tPerceptual,tMusical,tSinging,tEmotions)
+      
+  #Add them up
+      ACTIVE <- sum(activeEngagement)
+      PERCEPTUAL <- sum(perceptualAbilities)
+      MUSICAL <- sum(musicalTraining)
+      SINGING <- sum (singingAbilities)
+      EMOTIONS <- sum(emotions)
+      GENERAL <- sum(generalFactor)
+  
+  finalScores1 <- cbind(subjNo,ACTIVE,PERCEPTUAL,MUSICAL,SINGING,EMOTIONS,GENERAL,
+                        Instrument, occStats, Genre, edAttain, edExpected,
+                        Age, Gender, Nationality, Formative, CurrentCountry, individual_responses)
+
+write.table(finalScores1,paste0(substr(fns[i],1,nchar(fns[i])-4),"_data.csv"),sep=",",col.names=TRUE,row.names=FALSE)
+
+   }
+ }
+
+## Once you run score.directory(), run this! 
+
+create.dataset <- function(){
+  filenames <- list.files(pattern = "data")
+  bigdata <- do.call("rbind", lapply(filenames, read.csv, header = TRUE))
+  write.csv(bigdata,"Gold_MSI_combined_data_with_Indvidual_Responses.csv")
+}
+
+#======================================================================================================
+# David John Baker, Dec 29th, 2017
+#======================================================================================================

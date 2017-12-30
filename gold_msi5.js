@@ -57,7 +57,7 @@ var genre_scale = ["Rock/Pop", "Jazz", "Classical Music"];
 var education_complete_scale = ["Did not complete any school qualification.", 
 "Completed first school qualification at ~16 years (Junior High/GCSE)", 
 "Completed second qualification (e.g. High school/A-levels)", 
-"Ungergraduate degree/Professional qualification", "Graduate school/Postgraduate degree", 
+"Undergraduate degree/Professional qualification", "Graduate school/Postgraduate degree", 
 "I am still in education" ];
 
 /// Expected Education Scale (Original GMSI)
@@ -137,7 +137,7 @@ var likert_page4 = {
 		{prompt: "I have had formal training in music theory for __ years.", labels: scale_35, required: true},
 		{prompt: "I have had __ years of formal training on a musical instrument (including voice) during my lifetime.",labels: scale_36, required: true},
 		{prompt: "I can play __ musical instruments.",labels: scale_37, required: true},
-		{prompt: "I listen attentively ot music for __ per day.",labels: scale_38, required: true}],
+		{prompt: "I listen attentively to music for __ per day.",labels: scale_38, required: true}],
 }; 
 
 //5
@@ -167,6 +167,26 @@ var instrument_block = {
 	type: 'survey-text',
 	questions: [{prompt: "What instrument do you play best?"}], 
 	};
+
+var nationality_block = {
+	type: 'survey-text',
+	questions: [{prompt: "What is your nationality?"}], 
+	};
+
+
+var formative_block = {
+	type: 'survey-text',
+	questions: [{prompt: "Which country did you spend the formative years of your childhood and youth?"}], 
+	};
+
+var currentcountry_block = {
+	type: 'survey-text',
+	questions: [{prompt: "Which country are you currently a resident of?"}], 
+	};
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

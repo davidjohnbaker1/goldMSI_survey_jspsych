@@ -1,0 +1,13 @@
+view_history,rt,trial_type,trial_index,time_elapsed,internal_node_id,subject,responses
+"[{""page_index"":0,""viewing_time"":1452},{""page_index"":1,""viewing_time"":982},{""page_index"":2,""viewing_time"":871}]",3306,instructions,0,3307,0.0-0.0,LOW,
+,39382,survey-likert,1,42693,0.0-1.0,LOW,"{""Q0"":0,""Q1"":0,""Q2"":0,""Q3"":0,""Q4"":0,""Q5"":0,""Q6"":0,""Q7"":0,""Q8"":6,""Q9"":0}"
+,52125,survey-likert,2,94821,0.0-2.0,LOW,"{""Q0"":6,""Q1"":0,""Q2"":6,""Q3"":6,""Q4"":0,""Q5"":0,""Q6"":6,""Q7"":0,""Q8"":0,""Q9"":0}"
+,63628,survey-likert,3,158451,0.0-3.0,LOW,"{""Q0"":6,""Q1"":0,""Q2"":6,""Q3"":0,""Q4"":6,""Q5"":0,""Q6"":6,""Q7"":0,""Q8"":0,""Q9"":0,""Q10"":0}"
+,11159,survey-likert,4,169612,0.0-4.0,LOW,"{""Q0"":0,""Q1"":0,""Q2"":0,""Q3"":0,""Q4"":0,""Q5"":0,""Q6"":0}"
+,6096,survey-likert,5,175710,0.0-5.0,LOW,"{""Q0"":0,""Q1"":0,""Q2"":0,""Q3"":0}"
+,4584,survey-text,6,180295,0.0-6.0,LOW,"{""Q0"":""Tuba""}"
+,4282,survey-text,7,184579,0.0-7.0,LOW,"{""Q0"":""18""}"
+,7178,survey-text,8,191757,0.0-8.0,LOW,"{""Q0"":""MALE""}"
+,5525,survey-text,9,151317,0.0-9.0,LOW,"{""Q0"":""AUSTRIA""}"
+,4341,survey-text,10,155659,0.0-10.0,LOW,"{""Q0"":""AUSTRIA""}"
+,4228,survey-text,11,159887,0.0-11.0,LOW,"{""Q0"":""AUSTRIA""}"
