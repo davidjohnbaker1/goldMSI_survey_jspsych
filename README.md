@@ -12,14 +12,14 @@ It will also download an R Script that will score each survey (Not added yet!!).
 Of course there is also a way of doing this at the command line, but if you know that you probably are not reading this anyway.
 
 Once you have this repository downloaded, unzip the file where you would like it on your computer.
-The file will have a copy of this README file, as well as an html file used to run the experiment and a js file that contains all of the scales needed.
+The file will have a copy of this README file, as well as an ``.html`` file used to run the experiment and a ``.js`` file that contains all of the scales needed.
 After this has been set up you then need to download jsPsych so that these scripts will run.
  
 ## The jsPsych Library
 
 jsPsych is an open source library that is made for running experiments in the web browser.
 Download it by going the repository [here](https://github.com/jspsych/jsPsych) and then clicking the green 'Clone or download' button.
-If you 'Dowload ZIP', then your browser will save the file and its contents to your downloads. 
+If you 'Dowload ZIP' just like you did before, then your browser will save the file and its contents to your downloads. 
 Move that file to inside the directory you just downloaded and then unzip it.
 The last thing that you will then need to do is to change the name of the folder from ``jsPsych-master`` to ``jspsych-5.0``.
 Doing this will the scripts from the Gold-MSI folder to read the jsPsych files needed to run the survey.
