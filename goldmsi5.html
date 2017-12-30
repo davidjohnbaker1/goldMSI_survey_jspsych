@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+  <title>Gold-MSI 5</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="jspsych-5.0/jspsych.js"></script>
+        <script src="jspsych-5.0/plugins/jspsych-instructions.js"></script>
+        <script src="jspsych-5.0/plugins/jspsych-single-stim.js"></script>
+        <script src="jspsych-5.0/plugins/jspsych-survey-text.js"></script>
+        <script src="jspsych-5.0/plugins/jspsych-survey-likert2.js"></script>
+        <link href="jspsych-5.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  </head>
+  <body>
+    <div id="jspsych-target"></div>
+  </body>
+  <script>
+
+var trial = {
+    type: 'instructions',
+    pages: ["<p>Welcome to the Goldsmiths' Sophistication Index version 1.0. </p>"
+,
+      'This is the second page of instructions.',
+      'This is the final page.'],
+    show_clickable_nav: true
+  }
+
+
+var welcome_block = {
+    	        type: 'instructions',
+    	        text: "<p>Welcome to the Goldsmiths' Sophistication Index version 1.0. </p>"
+    	        		+ "<p> Please press the SPACE bar to start the survey!</p>"
+    	    };
+    	
+var consent_block = {
+    			type: 'instructions',
+    			text: "<p>Before collecting any data we are required to obtain a confirmation of consent all for participants.</p>" 
+    				+ "<p>Please read the following statement: </p>" 
+    				+ "<p>This survey will ask you to self report on your musical background. You may choose not to participate or to withdraw from the study at any time without penalty or loss of any benefit.  "
+    				+ "All data will be made anonymous and all efforts will be made to keep data private and secure. For questions concerning participant rights, feel free"
+    				+" to contact Dr. Dennis Landin, chair of the Institutional Review Board at either (225)-578-8692 or irb@lsu.edu.</p>"
+    				+ "<p> If you are willing to partake in this study, please press any key on the keyboard and the survey will begin."		
+ 					};
+
+var gmsiIntro_block = {
+    	       type: 'instructions',
+    	        text: 'Thank you for choosing to participate in this experiment.</p>'  
+    	        + "<p>Please answer the following survey questions about your musical background.</p>"
+    	        + '<p>Click the number below on each statement to indicate the extent to which you either agree or disagree with each statement.</p>'
+    	    };
+
+var survey_age = {
+  type: 'survey-text',
+  questions: ["<p>How old are you?</p> <p>Please write a number in the space below.</p>", "<p>What gender do you identify with?</p> <p>Please write you answer in all capital letters.</p>"],
+};
+
+var thankYou1 = {
+				type: 'text',
+				text: "Thank you for completing the first portion of the experiment."
+					+ "<p> Please feel free to look away from the screen and take a quick break if you feel you need a break.</p>"
+					+ "<p> Once you are ready to continue, please alert the experimenter and they will load the next portion of the survey.</p>" 
+					};
+</script>
+<script src="jspsych-5.0/gold_msi5.js"></script>
+<script>
+
+
+var subject_id = prompt("Enter Participant Number");
+        jsPsych.data.addProperties({
+                          subject: subject_id,
+                });
+					
+    jsPsych.init({
+        timeline: [ trial,welcome_block, consent_block, 
+        gmsiIntro_block, likert_page1, likert_page2, likert_page3, likert_page4,likert_page5, instrument_block,
+        survey_age, thankYou1],
+	fullscreen: true,
+        show_progress_bar: true,
+        on_finish: function() {
+  		jsPsych.data.localSave(subject_id+'.csv', 'csv');}
+    });
+
+  </script>
+</html>
