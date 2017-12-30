@@ -8,7 +8,7 @@ All information to run this locally is provided and is written for those unfamil
 The first thing you will want to do if you want to use these files in your own reserach is download this repository.
 You can do this by clicking on the green 'Clone or download' button near the top of this page.
 This will download everything you need to run this survey locally on your machine.
-It will also download an R Script that will score each survey. 
+It will also download an R Script that will score each survey (Not added yet!!). 
 Of course there is also a way of doing this at the command line, but if you know that you probably are not reading this anyway.
 
 Once you have this repository downloaded, unzip the file where you would like it on your computer.
