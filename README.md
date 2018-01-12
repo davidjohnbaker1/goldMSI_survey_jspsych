@@ -18,7 +18,8 @@ After this has been set up you then need to download jsPsych so that these scrip
 ## The jsPsych Library
 
 jsPsych is an open source library that is made for running experiments in the web browser.
-Download it by going the repository [here](https://github.com/jspsych/jsPsych) and then clicking the green 'Clone or download' button.
+Download it by going the repository [here](https://github.com/jspsych/jsPsych/releases/tag/v5.0) and then clicking the green 'Clone or download' button.
+Right now the current is set to work with the 5.0 release, updates will be made soon for 6.0 compatability.
 If you 'Dowload ZIP' just like you did before, then your browser will save the file and its contents to your downloads. 
 Move that file to inside the directory you just downloaded and then unzip it.
 The last thing that you will then need to do is to change the name of the folder from ``jsPsych-master`` to ``jspsych-5.0``.
